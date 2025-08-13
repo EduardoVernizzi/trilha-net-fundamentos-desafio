@@ -3,31 +3,40 @@
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
+decimal precoInicial;
+decimal precoPorHora;
 
-Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
+Console.WriteLine("Seja bem-vindo ao sistema de estacionamento!\n");
 
-Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
+// Entrada validada para preço inicial
+Console.Write("Digite o preço inicial: ");
+while (!decimal.TryParse(Console.ReadLine(), out precoInicial) || precoInicial < 0)
+{
+    Console.Write("Valor inválido! Digite novamente o preço inicial: ");
+}
 
-// Instancia a classe Estacionamento, já com os valores obtidos anteriormente
+// Entrada validada para preço por hora
+Console.Write("Agora digite o preço por hora: ");
+while (!decimal.TryParse(Console.ReadLine(), out precoPorHora) || precoPorHora < 0)
+{
+    Console.Write("Valor inválido! Digite novamente o preço por hora: ");
+}
+
+// Instancia a classe Estacionamento
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
 
-string opcao = string.Empty;
 bool exibirMenu = true;
 
-// Realiza o loop do menu
+// Loop do menu
 while (exibirMenu)
 {
     Console.Clear();
-    Console.WriteLine("Digite a sua opção:");
+    Console.WriteLine("=== SISTEMA DE ESTACIONAMENTO ===");
     Console.WriteLine("1 - Cadastrar veículo");
     Console.WriteLine("2 - Remover veículo");
     Console.WriteLine("3 - Listar veículos");
     Console.WriteLine("4 - Encerrar");
+    Console.Write("Escolha uma opção: ");
 
     switch (Console.ReadLine())
     {
@@ -48,12 +57,12 @@ while (exibirMenu)
             break;
 
         default:
-            Console.WriteLine("Opção inválida");
+            Console.WriteLine("❌ Opção inválida!");
             break;
     }
 
-    Console.WriteLine("Pressione uma tecla para continuar");
-    Console.ReadLine();
+    Console.WriteLine("\nPressione qualquer tecla para continuar...");
+    Console.ReadKey();
 }
 
-Console.WriteLine("O programa se encerrou");
+Console.WriteLine("Programa encerrado. Até logo!");
